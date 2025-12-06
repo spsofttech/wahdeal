@@ -1,0 +1,187 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\FashionOfferBanner;
+use App\Models\Category;
+use Illuminate\Support\Facades\File;
+
+class FashionBannerController extends Controller
+{
+    public function index()
+    {
+        return view('admin.fashion_banner');
+    }
+
+    public function get_list(Request $request)
+    {
+        if ($request->ajax()) 
+        {
+            $start = $request->get('start', 0);
+            $length = $request->get('length', 10); 
+            $orderColumn = $request->input('order_column');
+            $orderDir = $request->input('order_dir', 'asc');
+            $search = $request->get('search')['value'];
+            $columns = ['fashion_offer_banners.id', 'categories.name', 'fashion_offer_banners.title'];
+
+            $query = FashionOfferBanner::leftJoin('categories', 'categories.id', '=', 'fashion_offer_banners.category_id')
+                ->select('fashion_offer_banners.*', 'categories.name as category_name');
+
+            if ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('categories.name', 'like', "%{$search}%")
+                    ->orWhere('fashion_offer_banners.title', 'like', "%{$search}%");
+                });
+            }
+        
+            $query = $query->orderBy($columns[$orderColumn], $orderDir);
+
+
+            $filtertotalget =  $query->get();
+            $users = $query->skip($start)->take($length)->get();
+
+
+            $totalRecords = FashionOfferBanner::count();
+            $filteredRecords = count($filtertotalget);
+
+        
+            $i =  $request->get('start');
+            $data = array();
+            foreach($users as $val){
+            $i++;
+
+            $checked = '';
+            if($val->status == 1){
+                $checked = 'checked';
+            }
+
+                $status = '<label class="switch"><input type="checkbox" '.$checked.' onchange="changestatus('.$val->id.')"><span class="slider"></span></label>';
+
+
+                $imagepath = $val->image 
+                ? asset('uploads/fashion_offer_banner/' . $val->image) 
+                : asset('images/logo.png');
+
+
+                $uimage = '<img class="status-img" src="' . $imagepath .'" alt="'.$val->icon.'" style="width:100%;">';
+
+
+                $action = '
+                <a class="btn btn-link mybtn" href="' . route('admin.fashion_banner_edit', $val->id) .'" style="color:green!important;">
+                            <i class="fa fa-edit" style="color:green!important;" title="Edit"></i>
+                            </a>
+                            
+                <button class="btn btn-link mybtn" onclick="deleteuser('.$val->id.')">
+                            <i class="fa fa-trash" style="color: red;" title="Delete"></i>
+                            </button>';
+
+                $sub_array = [];
+                $sub_array['no'] = $i;
+                $sub_array['category'] = $val->category_name ?? '';
+                $sub_array['title'] = $val->title ?? '';
+                $sub_array['image'] = $uimage;
+                $sub_array['status'] = $status;
+                $sub_array['action'] = $action;
+                $data[] = $sub_array;
+            }
+
+
+            return response()->json([
+                'draw' => $request->get('draw'),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $filteredRecords,
+                'data' => $data
+            ]);
+        }
+    }
+
+    public function add_fashion_banner(){
+        $category = Category::where('status','1')->where('is_fashion','1')->get();
+        return view('admin.add_fashion_banner',compact('category'));
+    }
+
+    public function insert_fashion_banner(Request $request){
+        $fileName = '';
+         if ($request->hasFile('image')) {
+            $bannerfile = $request->file('image');
+            $fileName = time() . '-' . $bannerfile->getClientOriginalName();
+            $bannerfile->move(public_path('uploads/fashion_offer_banner'), $fileName);
+        }
+
+        $banner = new FashionOfferBanner;
+        $banner->category_id  = $request->category_id;
+        $banner->title  = $request->title;
+        $banner->image  = $fileName;
+        $banner->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data Added Success',
+            'redirect' => route('admin.fashion_banner'),
+        ]);
+    }
+
+    public function fashion_banner_edit($id){
+        $category = Category::where('status','1')->where('is_fashion','1')->get();
+        $banner = FashionOfferBanner::where('id',$id)->first();
+        return view('admin.edit_fashion_banner',compact('category','banner'));
+    }
+
+     public function update_fashion_banner(Request $request){
+
+        $banner = FashionOfferBanner::where('id',$request->id)->first();
+
+        $fileName = '';
+         if ($request->hasFile('image')) {
+            $filePath = public_path('uploads/fashion_offer_banner/'.$banner->image);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+
+            $bannerfile = $request->file('image');
+            $fileName = time() . '-' . $bannerfile->getClientOriginalName();
+            $bannerfile->move(public_path('uploads/fashion_offer_banner'), $fileName);
+            $banner->image  = $fileName;
+        }
+
+        
+        $banner->category_id  = $request->category_id;
+        $banner->title  = $request->title;
+        $banner->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data Updated Success',
+            'redirect' => route('admin.fashion_banner'),
+        ]);
+    }
+
+    public function fashion_banner_status_change(Request $request){
+        $userdata = FashionOfferBanner::find($request->id);
+
+        if($userdata['status'] == '0'){
+            $userdata->status = '1';
+        }else{
+            $userdata->status = '0';
+        }
+        
+         $userdata->save();
+
+         return response()->json([
+            'status' => 'success',
+            'msg' => 'status change success',
+        ]);
+    }
+
+    public function fashion_banner_delete(Request $request){
+        $userdata = FashionOfferBanner::find($request->id);
+        $userdata->delete();
+
+         return response()->json([
+            'status' => 'success',
+            'msg' => 'data deleted success',
+        ]);
+    }
+}
