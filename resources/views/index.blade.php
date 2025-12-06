@@ -65,135 +65,20 @@
     <div class="overflow-auto py-2">
       <div class="d-flex flex-nowrap gap-3">
 
-        <!-- 1. View All -->
+        @if(!empty($category))
+        @foreach ($category as $calval)
         <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
           <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/event.svg') }}" class="img-fluid mb-2" alt="View All"
+            <img src="{{$calval->image_url}}" class="img-fluid mb-2" alt="{{$calval->name}}"
               style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="View All">View All</span>
-            <small class="text-light">(250)</small>
+            <span class="text-truncate d-block w-100" title="{{$calval->name}}">{{$calval->name}}</span>
+            <small class="text-light">({{$calval->brands_count}})</small>
           </div>
         </div>
+        @endforeach
+        @endif
 
-        <!-- 2. Fashion Apparel -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/fashion.svg ') }}" class="img-fluid mb-2" alt="Fashion Apparel"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Fashion Apparel">Fashion Apparel</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
 
-        <!-- 3. Restaurant -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/resto.svg') }}" class="img-fluid mb-2" alt="Restaurant"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Restaurant">Restaurant</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
-
-        <!-- 4. Salon & SPA -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/salon.svg') }}" class="img-fluid mb-2" alt="Salon & SPA"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Salon & SPA">Salon & SPA</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
-
-        <!-- 5. Education -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/edu.svg') }}" class="img-fluid mb-2" alt="Education"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Education">Education</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
-
-        <!-- 6. Gym & Aerobics -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/gym.svg') }}" class="img-fluid mb-2" alt="Gym & Aerobics"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Gym & Aerobics">Gym & Aerobics</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
-
-        <!-- 7. Electronics -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/elec.svg') }}" class="img-fluid mb-2" alt="Electronics"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Electronics">Electronics</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
-
-        <!-- 8. Retailer -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/retail.svg') }}" class="img-fluid mb-2" alt="Retailer"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Retailer">Retailer</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
-
-        <!-- 9. Home Services -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/home.svg') }}" class="img-fluid mb-2" alt="Home Services"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Home Services">Home Services</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
-
-        <!-- 10. Health -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/health.svg') }}" class="img-fluid mb-2" alt="Health"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Health">Health</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
-
-        <!-- 11. Hotel & Resort -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/hotel.svg') }}" class="img-fluid mb-2" alt="Hotel & Resort"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Hotel & Resort">Hotel & Resort</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
-
-        <!-- 12. Automobile -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/auto.svg') }}" class="img-fluid mb-2" alt="Automobile"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Automobile">Automobile</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
-
-        <!-- 13. Home & PG -->
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
-          <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
-            <img src="{{ asset('./svg/pg.svg') }}" class="img-fluid mb-2" alt="Home & PG"
-              style="width: 50px; height: 50px;">
-            <span class="text-truncate d-block w-100" title="Home & PG">Home & PG</span>
-            <small class="text-light">(50)</small>
-          </div>
-        </div>
 
       </div>
     </div>

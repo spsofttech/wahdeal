@@ -52,8 +52,14 @@ class HomeController extends Controller
             $user_long = $userlatitude['long'];
         }
 
+        
+        $categoryId = '';
+        $page = 1;
+        $limit = 2;
+        $search = '';
 
-        $category = Category::where('status', '1')
+
+       $category = Category::where('status', '1')
         ->orderBy('rank', 'asc')
         ->get()
         ->map(function ($cat) {
