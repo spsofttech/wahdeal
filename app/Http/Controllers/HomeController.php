@@ -341,7 +341,7 @@ class HomeController extends Controller
         }
 
         
-        $categoryId = '';
+        $categoryId = $request->category_id;
         $page = $request->page;
         $limit = 2;
         $search = '';

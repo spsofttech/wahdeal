@@ -66,7 +66,8 @@
       <div class="d-flex flex-nowrap gap-3">
         @if(!empty($category))
         @foreach ($category as $calval)
-        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
+        <div class="card text-center border-0 flex-shrink-0" style="width: 100px;"
+          onclick="getcategorydata({{$calval->id}})">
           <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
             <img src="{{$calval->image_url}}" class="img-fluid mb-2" alt="{{$calval->name}}"
               style="width: 50px; height: 50px;">
@@ -136,7 +137,7 @@
 
 @foreach($filteredCategories as $keys => $category)
 <!-- section 3 -->
-<div class="container-fluid py-4 event">
+<div class="container-fluid py-4 event categorydata">
 
   <div class="row align-items-center">
 
@@ -365,7 +366,7 @@
 
 @if($keys == '0' && !empty($events))
 <!-- section 9 -->
-<div class="event-bg py-2 container-fluid">
+<div class="event-bg py-2 container-fluid eventdata">
   <div class="container-fluid py-4 event">
 
     <!-- Heading Row -->
@@ -421,6 +422,7 @@
 <!-- ⭐ Center Button -->
 <div class="text-center mt-3">
   <input type="hidden" id="pageid" value="1">
+  <input type="hidden" id="category_id" value="">
   <button class="show-more-btn bg-white" onclick="showmoreoffer()">Show More Offers <i
       class="bi bi-chevron-double-down fw-semibold"></i></button>
 </div>
@@ -590,25 +592,40 @@
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
     var pageid = parseInt($("#pageid").val());
     var newpage = pageid + 1;
+    var category_id = $("#category_id").val();
+
+  
     $.ajax({
         url: "{{ route('get_home_data_page_wise') }}",
         type: "POST",
         data: {
             _token: csrfToken,
-            page: newpage
+            page: newpage,
+            category_id:category_id
         },
         success: function(response) {
             $("#pageid").val(newpage);
             if (response.status == 'success') {
                 $("#ajax_home_data").append(response.message);
-            }else{
-                 
             }
         },
         error: function(xhr, status, error) {
             console.error('Error:', error);
         }
     });
+  }
+
+  function getcategorydata(id){
+    $("#pageid").val(0);
+    if(id == '1'){
+      $("#category_id").val('');
+    }else{
+      $(".categorydata").hide();
+      $(".subcategory-block").hide();
+      $(".eventdata").hide();
+      $("#category_id").val(id);
+    }
+    showmoreoffer()
   }
 </script>
 

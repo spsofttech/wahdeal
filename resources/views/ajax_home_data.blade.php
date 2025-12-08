@@ -1,6 +1,6 @@
 @foreach($filteredCategories as $keys => $category)
 <!-- section 3 -->
-<div class="container-fluid py-4 event">
+<div class="container-fluid py-4 event categorydata">
 
     <div class="row align-items-center">
 
@@ -227,6 +227,7 @@
     @endif
 
 </div>
+
 
 @endforeach
 
