@@ -292,13 +292,13 @@ body {
 }
 
 /* Image section */
-.brand-img {
+/* .brand-img {
   height: 85px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 5px;
-}
+} */
 
 .brand-img img {
   width: 70px;

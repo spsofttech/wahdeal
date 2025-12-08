@@ -296,6 +296,8 @@ class HomeController extends Controller
         $json_file = asset('uploads/home_lotti.json');
         $is_blur = is_blur($uid);
 
+        
+
 
         return view('index',compact('category','filteredCategories','promote_data','userdata','is_blur','json_file'));
     }

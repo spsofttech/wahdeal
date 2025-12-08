@@ -176,6 +176,17 @@ $roles = getBranchRoles();
                         @endif
 
 
+                        @if(in_array('booking', $roles))
+                        <li class="nav-item">
+                            <a href="{{ route('brand.booking') }}"
+                                class="nav-link {{ request()->routeIs('brand.booking') ? 'active' : '' }} {{ request()->routeIs('brand.booking_view') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-chart-pie"></i>
+                                <p>Booking / Appointment</p>
+                            </a>
+                        </li>
+                        @endif
+
+
 
 
                         <li class="nav-item">

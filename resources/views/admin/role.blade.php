@@ -70,6 +70,15 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="booking"
+                                                    name="role[]" value="booking">
+                                                <label class="form-check-label" for="booking">Booking /
+                                                    Appointment</label>
+                                            </div>
+                                        </div>
+
 
                                     </div>
 
@@ -148,8 +157,14 @@
                         if(role.status == "1"){
                         $("#orderchk").prop("checked", true);
                         }
-                    
                     }
+
+                    if (role.role == "booking") {
+                        if(role.status == "1"){
+                            $("#booking").prop("checked", true);
+                        }
+                    }
+
                 });
             }
         },

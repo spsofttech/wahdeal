@@ -64,7 +64,6 @@
     <!-- Category Carousel -->
     <div class="overflow-auto py-2">
       <div class="d-flex flex-nowrap gap-3">
-
         @if(!empty($category))
         @foreach ($category as $calval)
         <div class="card text-center border-0 flex-shrink-0" style="width: 100px;">
@@ -77,9 +76,6 @@
         </div>
         @endforeach
         @endif
-
-
-
       </div>
     </div>
 
@@ -101,133 +97,36 @@
     <div class="overflow-auto mb-2">
       <div class="d-flex flex-nowrap gap-3 pb-2">
 
-        <!-- Card 1 -->
-        <div class="card1 border-0 position-relative text-white flex-shrink-0"
-          style="width: 150px; border-radius: 0; overflow: hidden;">
-          <img src="{{ asset('images/brand5.png') }}" alt="LUX"
-            style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <div class="position-absolute top-0 start-0 w-100 d-flex justify-content-between align-items-center px-2 py-1"
-            style="font-size: 0.85rem;">
-            <span class="text-dark"><i class="fa-regular fa-eye me-1"></i>20K</span>
-            <i class="fa-solid fa-heart text-danger"></i>
+        @if(!empty($promote_data))
+        @foreach($promote_data as $pval)
+        <div class="brand-card">
+          <div class="brand-top">
+            <span><i class="fa-regular fa-eye"></i> {{$pval['count']}}</span>
+            <div class="d-flex align-items-center gap-2">
+              @if($pval['veg'] == '1')
+              <img src="{{ asset('images/veg.png') }}" width="20">
+              @elseif($pval['veg'] == '2')
+              <img src="{{ asset('images/non_veg.png') }}" width="20">
+              @elseif($pval['veg'] == '0')
+              @else
+              <img src="{{ asset('images/veg-non.png') }}" width="20">
+              @endif
+              <span class="brand-heart text-danger"><i
+                  class="@if($pval['like_status'] == '1')fa-solid @else fa-regular @endif fa-heart"></i></span>
+            </div>
           </div>
-          <div class="position-absolute bottom-0 start-0 w-100 text-center fw-semibold py-2"
-            style="background-color: #ff6600;">
-            UP TO 55% OFF
-          </div>
-        </div>
 
-        <!-- Card 2 -->
-        <div class="card1 border-0 position-relative text-white flex-shrink-0"
-          style="width: 150px; height: 180px; border-radius: 0; overflow: hidden;">
-          <img src="{{ asset('images/brand7.png') }}" alt="DOVE"
-            style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <div class="position-absolute top-0 start-0 w-100 d-flex justify-content-between align-items-center px-2 py-1"
-            style="font-size: 0.85rem;">
-            <span class="text-dark"><i class="fa-regular fa-eye me-1"></i>22K</span>
-            <i class="fa-solid fa-heart text-danger"></i>
+          <div class="brand-img">
+            <img src="{{$pval['icon']}}">
           </div>
-          <div class="position-absolute bottom-0 start-0 w-100 text-center fw-semibold py-2"
-            style="background-color: #ff6600;">
-            UP TO 50% OFF
-          </div>
-        </div>
 
-        <!-- Card 3 -->
-        <div class="card1 border-0 position-relative text-white flex-shrink-0"
-          style="width: 150px; height: 180px; border-radius: 0; overflow: hidden;">
-          <img src="{{ asset('images/brand6.png') }}" alt="NIVEA"
-            style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <div class="position-absolute top-0 start-0 w-100 d-flex justify-content-between align-items-center px-2 py-1"
-            style="font-size: 0.85rem;">
-            <span class="text-dark"><i class="fa-regular fa-eye me-1"></i>15K</span>
-            <i class="fa-solid fa-heart text-danger"></i>
-          </div>
-          <div class="position-absolute bottom-0 start-0 w-100 text-center fw-semibold py-2"
-            style="background-color: #ff6600;">
-            UP TO 40% OFF
-          </div>
+          <div class="brand-name">{{ Str::limit($pval['name'], 18) }}</div>
+          <div class="offer-strip">UP TO @if($pval['discount_amount'] > 0) {{$pval['discount_amount']}} @else 0 @endif
+            OFF</div>
         </div>
+        @endforeach
+        @endif
 
-        <!-- Card 4 -->
-        <div class="card1 border-0 position-relative text-white flex-shrink-0"
-          style="width: 150px; height: 180px; border-radius: 0; overflow: hidden;">
-          <img src="{{ asset('images/brand8.png') }}" alt="POND'S"
-            style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <div class="position-absolute top-0 start-0 w-100 d-flex justify-content-between align-items-center px-2 py-1"
-            style="font-size: 0.85rem;">
-            <span class="text-dark"><i class="fa-regular fa-eye me-1"></i>19K</span>
-            <i class="fa-solid fa-heart text-danger"></i>
-          </div>
-          <div class="position-absolute bottom-0 start-0 w-100 text-center fw-semibold py-2"
-            style="background-color: #ff6600;">
-            UP TO 60% OFF
-          </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="card1 bg-light border-0 position-relative text-white flex-shrink-0"
-          style="width: 150px; height: 180px; border-radius: 0; overflow: hidden;">
-          <img src="{{ asset('images/brand8.png') }}" alt="LUX"
-            style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <div class="position-absolute top-0 start-0 w-100 d-flex justify-content-between align-items-center px-2 py-1"
-            style="font-size: 0.85rem;">
-            <span class="text-dark"><i class="fa-regular fa-eye me-1"></i>20K</span>
-            <i class="fa-solid fa-heart text-danger"></i>
-          </div>
-          <div class="position-absolute bottom-0 start-0 w-100 text-center fw-semibold py-2"
-            style="background-color: #ff6600;">
-            UP TO 55% OFF
-          </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="card1 bg-light border-0 position-relative text-white flex-shrink-0"
-          style="width: 150px; height: 180px; border-radius: 0; overflow: hidden;">
-          <img src="{{ asset('images/brand8.png') }}" alt="LUX"
-            style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <div class="position-absolute top-0 start-0 w-100 d-flex justify-content-between align-items-center px-2 py-1"
-            style="font-size: 0.85rem;">
-            <span class="text-dark"><i class="fa-regular fa-eye me-1"></i>20K</span>
-            <i class="fa-solid fa-heart text-danger"></i>
-          </div>
-          <div class="position-absolute bottom-0 start-0 w-100 text-center fw-semibold py-2"
-            style="background-color: #ff6600;">
-            UP TO 55% OFF
-          </div>
-        </div>
-
-        <!-- Card 7 -->
-        <div class="card1 bg-light border-0 position-relative text-white flex-shrink-0"
-          style="width: 150px; height: 180px; border-radius: 0; overflow: hidden;">
-          <img src="{{ asset('images/brand8.png') }}" alt="LUX"
-            style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <div class="position-absolute top-0 start-0 w-100 d-flex justify-content-between align-items-center px-2 py-1"
-            style="font-size: 0.85rem;">
-            <span class="text-dark"><i class="fa-regular fa-eye me-1"></i>20K</span>
-            <i class="fa-solid fa-heart text-danger"></i>
-          </div>
-          <div class="position-absolute bottom-0 start-0 w-100 text-center fw-semibold py-2"
-            style="background-color: #ff6600;">
-            UP TO 55% OFF
-          </div>
-        </div>
-
-        <!-- Card 8 -->
-        <div class="card1 bg-light border-0 position-relative text-white flex-shrink-0"
-          style="width: 150px; height: 180px; border-radius: 0; overflow: hidden;">
-          <img src="{{ asset('images/brand8.png') }}" alt="LUX"
-            style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <div class="position-absolute top-0 start-0 w-100 d-flex justify-content-between align-items-center px-2 py-1"
-            style="font-size: 0.85rem;">
-            <span class="text-dark"><i class="fa-regular fa-eye me-1"></i>20K</span>
-            <i class="fa-solid fa-heart text-danger"></i>
-          </div>
-          <div class="position-absolute bottom-0 start-0 w-100 text-center fw-semibold py-2"
-            style="background-color: #ff6600;">
-            UP TO 55% OFF
-          </div>
-        </div>
 
       </div>
     </div>
@@ -878,6 +777,8 @@
     </div>
   </div>
 </div>
+
+
 
 <!-- section 10 -->
 <div class="container-fluid py-3" style="background-color: var(--light-bg);">

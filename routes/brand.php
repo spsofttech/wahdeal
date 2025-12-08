@@ -5,6 +5,7 @@ use App\Http\Controllers\Brand\DashboardController;
 use App\Http\Controllers\Brand\BranchController;
 use App\Http\Controllers\Brand\ProductController;
 use App\Http\Controllers\Brand\OrderController;
+use App\Http\Controllers\Brand\BookingController;
 
 
 Route::get('brand/login', [LoginController::class, 'showLoginForm'])->name('brand.login');
@@ -41,8 +42,15 @@ Route::middleware(['brand'])->group(function () {
         Route::get('/brand/order', [OrderController::class, 'index'])->name('brand.order');
         Route::get('/brand/order_list', [OrderController::class, 'get_list'])->name('brand.order_list');
         Route::get('/brand/order_view/{id}', [OrderController::class, 'order_view'])->name('brand.order_view');
-         Route::post('/brand/order_change_status', [OrderController::class, 'order_change_status'])->name('brand.order_change_status');
+        Route::post('/brand/order_change_status', [OrderController::class, 'order_change_status'])->name('brand.order_change_status');
     /* Order */
+
+    /* Booking */
+        Route::get('/brand/booking', [BookingController::class, 'index'])->name('brand.booking');
+        Route::get('/brand/booking_list', [BookingController::class, 'get_list'])->name('brand.booking_list');
+        Route::get('/brand/booking_view/{id}', [BookingController::class, 'booking_view'])->name('brand.booking_view');
+        Route::post('/brand/booking_change_status', [BookingController::class, 'booking_change_status'])->name('brand.booking_change_status');
+    /* Booking */
 
 });
 
