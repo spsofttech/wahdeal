@@ -134,6 +134,7 @@
   </div>
 </section>
 
+@foreach($filteredCategories as $keys => $category)
 <!-- section 3 -->
 <div class="container-fluid py-4 event">
 
@@ -141,18 +142,19 @@
 
     <!-- Left Title -->
     <div class="col-12 col-md-3 mb-3 mb-md-0">
-      <div class="section-title">FOOD</div>
+      <div class="section-title">{{ $category['category_name'] }}</div>
     </div>
 
     <!-- Right Filters -->
     <div class="col-12 col-md-9">
       <div class="d-flex flex-wrap gap-2 gap-md-3 
-                justify-content-center justify-content-md-end">
+                  justify-content-center justify-content-md-end">
 
-        <button class="filter-btn">ALL</button>
-        <button class="filter-btn active">RESTAURANT</button>
-        <button class="filter-btn">CAFE</button>
-        <button class="filter-btn">FAST FOOD</button>
+        <button class="filter-btn active" data-target="all" data-category="{{ $category['category_id'] }}">ALL</button>
+        @foreach($category['subcategories'] as $key => $sub)
+        <button class="filter-btn" data-target="{{ $sub['subcategory_id'] }}"
+          data-category="{{ $category['category_id'] }}">{{ $sub['subcategory_name'] }}</button>
+        @endforeach
 
       </div>
     </div>
@@ -160,430 +162,208 @@
 
 </div>
 
-<!-- section 4 -->
-<div class="container-fluid py-4 event">
+@foreach($category['subcategories'] as $sub)
 
-  <div class="brand-scroll d-flex gap-3">
+<div class="subcategory-block" id="{{ $sub['subcategory_id'] }}" data-category="{{ $category['category_id'] }}">
 
-    <!-- CARD 1 -->
-    <div class="brand-card">
-      <div class="brand-top">
-        <span><i class="fa-regular fa-eye"></i> 20K</span>
-        <div class="d-flex align-items-center gap-2">
-          <img src="{{ asset('images/veg-non.png') }}" width="20">
-          <span class="brand-heart text-danger"><i class="fa-solid fa-heart"></i></span>
-        </div>
-      </div>
+  @if(!empty($sub['brands']))
+  <div class="container-fluid py-4 event">
 
-      <div class="brand-img">
-        <img src="{{ asset('images/lapinoz.png') }}">
-      </div>
+    <div class="brand-scroll d-flex gap-3">
 
-      <div class="brand-name">Lapino’z</div>
-      <div class="offer-strip">UP TO 60% OFF</div>
-    </div>
-
-    <!-- CARD 2 -->
-    <div class="brand-card">
-      <div class="brand-top">
-        <span><i class="fa-regular fa-eye"></i> 20K</span>
-        <div class="d-flex align-items-center gap-2">
-          <img src="{{ asset('images/veg-non.png') }}" width="20">
-          <span class="brand-heart text-secondary"><i class="fa-regular fa-heart"></i></span>
-        </div>
-      </div>
-
-      <div class="brand-img">
-        <img src="{{ asset('images/subway.png') }}">
-      </div>
-
-      <div class="brand-name">Subway</div>
-      <div class="offer-strip">UP TO 60% OFF</div>
-    </div>
-
-    <!-- CARD 3 -->
-    <div class="brand-card">
-      <div class="brand-top">
-        <span><i class="fa-regular fa-eye"></i> 20K</span>
-        <div class="d-flex align-items-center gap-2">
-          <img src="{{ asset('images/veg-non.png') }}" width="20">
-          <span class="brand-heart text-secondary"><i class="fa-regular fa-heart"></i></span>
-        </div>
-      </div>
-
-      <div class="brand-img">
-        <img src="{{ asset('images/brnd.png') }}">
-      </div>
-
-      <div class="brand-name">Burger King</div>
-      <div class="offer-strip">UP TO 60% OFF</div>
-    </div>
-
-    <!-- CARD 4 -->
-    <div class="brand-card">
-      <div class="brand-top">
-        <span><i class="fa-regular fa-eye"></i> 20K</span>
-        <div class="d-flex align-items-center gap-2">
-          <img src="{{ asset('images/veg-non.png') }}" width="20">
-          <span class="brand-heart text-secondary"><i class="fa-regular fa-heart"></i></span>
-        </div>
-      </div>
-
-      <div class="brand-img">
-        <img src="{{ asset('images/mcd.png') }}">
-      </div>
-
-      <div class="brand-name">McDonald’s</div>
-      <div class="offer-strip">UP TO 60% OFF</div>
-    </div>
-
-    <!-- CARD 5 -->
-    <div class="brand-card">
-      <div class="brand-top">
-        <span><i class="fa-regular fa-eye"></i> 20K</span>
-        <div class="d-flex align-items-center gap-2">
-          <img src="{{ asset('images/veg-non.png') }}" width="20">
-          <span class="brand-heart text-secondary"><i class="fa-regular fa-heart"></i></span>
-        </div>
-      </div>
-
-      <div class="brand-img">
-        <img src="{{ asset('images/brnd3.png') }}">
-      </div>
-
-      <div class="brand-name">KFC</div>
-      <div class="offer-strip">UP TO 60% OFF</div>
-    </div>
-
-    <!-- CARD 6 -->
-    <div class="brand-card">
-      <div class="brand-top">
-        <span><i class="fa-regular fa-eye"></i> 20K</span>
-        <div class="d-flex align-items-center gap-2">
-          <img src="{{ asset('images/veg-non.png') }}" width="20">
-          <span class="brand-heart text-secondary"><i class="fa-regular fa-heart"></i></span>
-        </div>
-      </div>
-
-      <div class="brand-img">
-        <img src="{{ asset('images/marti-noze.png') }}">
-      </div>
-
-      <div class="brand-name">Martino’z</div>
-      <div class="offer-strip">UP TO 60% OFF</div>
-    </div>
-
-  </div>
-
-</div>
-
-<!-- section 5 -->
-<section class="container-fluid my-5 event">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="fw-bold" style="font-size: 24px;">Best Offer</h3>
-    <a href="#" class="view-all">VIEW ALL ></a>
-  </div>
-
-  <!-- HORIZONTAL SCROLL WRAPPER -->
-  <div class="offer-scroll">
-
-    <!-- CARD 1 -->
-    <div class="offer-card">
-      <div class="offer-img-wrapper">
-
-        <span class="offer-badge">-50% OFF</span>
-        <img src="{{ asset('images/offer1.png') }}" class="offer-img">
-
-        <!-- ⭐ Rating inside image -->
-        <div class="img-rating">⭐ 4.5 • 20K</div>
-
-        <!-- Veg Image (added above heart) -->
-        <img src="{{ asset('images/veg.png') }}" class="veg-img">
-
-        <!-- Heart -->
-        <button class="fav-btn"><span class="text-danger"><i class="fa-solid fa-heart"></i></span></button>
-      </div>
-
-      <div class="p-3 d-flex justify-content-between">
-        <div>
-          <h6 class="fw-semibold mb-1">Flat ₹200 OFF on Buy Above ₹999</h6>
-
-          <div class="location">
-            <i class="fa-solid fa-location-dot"></i> Vadodara – 390005
+      @foreach($sub['brands'] as $brand)
+      <div class="brand-card">
+        <div class="brand-top">
+          <span><i class="fa-regular fa-eye"></i> {{$brand['count']}}</span>
+          <div class="d-flex align-items-center gap-2">
+            @if($brand['veg'] == '1')
+            <img src="{{ asset('images/veg.png') }}" width="20">
+            @elseif($brand['veg'] == '2')
+            <img src="{{ asset('images/non_veg.png') }}" width="20">
+            @elseif($brand['veg'] == '0')
+            @else
+            <img src="{{ asset('images/veg-non.png') }}" width="20">
+            @endif
+            <span><i class="fa-heart @if($brand['like_status'] == '1')fa-solid @else fa-regular @endif"></i></span>
           </div>
         </div>
 
-        <!-- RIGHT : Small brand logo -->
-        <img src="{{ asset('images/lapinoz.png') }}" class="brand-logo">
-      </div>
-
-    </div>
-
-    <!-- CARD 2 -->
-    <div class="offer-card">
-      <div class="offer-img-wrapper">
-        <span class="offer-badge">-50% OFF</span>
-        <img src="{{ asset('images/offer2.png') }}" class="offer-img">
-        <div class="img-rating">⭐ 4.5 • 20K</div>
-        <img src="{{ asset('images/veg.png') }}" class="veg-img">
-        <button class="fav-btn"><i class="fa-solid fa-heart text-danger"></i></button>
-      </div>
-      <div class="p-3 d-flex justify-content-between">
-        <div>
-          <h6 class="fw-semibold mb-1">Flat ₹200 OFF on Buy Above ₹999</h6>
-          <div class="location"><i class="fa-solid fa-location-dot"></i> Vadodara – 390005</div>
+        <div class="brand-img">
+          <img src="{{$brand['icon']}}">
         </div>
-        <img src="{{ asset('images/mcd.png') }}" class="brand-logo">
-      </div>
-    </div>
 
-    <!-- CARD 3 -->
-    <div class="offer-card">
-      <div class="offer-img-wrapper">
-        <span class="offer-badge">-50% OFF</span>
-        <img src="{{ asset('images/offer3.png') }}" class="offer-img">
-        <div class="img-rating">⭐ 4.5 • 20K</div>
-        <img src="{{ asset('images/veg.png') }}" class="veg-img">
-        <button class="fav-btn"><i class="fa-solid fa-heart text-danger"></i></button>
-      </div>
-      <div class="p-3 d-flex justify-content-between">
-        <div>
-          <h6 class="fw-semibold mb-1">Flat ₹200 OFF on Buy Above ₹999</h6>
-          <div class="location"><i class="fa-solid fa-location-dot"></i> Vadodara – 390005</div>
+        <div class="brand-name">{{$brand['name']}}</div>
+        <div class="offer-strip">UP TO @if($brand['discount_amount'] > 0) {{$brand['discount_amount']}} @else 0 @endif
+          OFF
         </div>
-        <img src="{{ asset('images/brnd.png') }}" class="brand-logo">
       </div>
-    </div>
+      @endforeach
 
-    <!-- CARD 4 -->
-    <div class="offer-card">
-      <div class="offer-img-wrapper">
-        <span class="offer-badge">-50% OFF</span>
-        <img src="{{ asset('images/offer3.png') }}" class="offer-img">
-        <div class="img-rating">⭐ 4.5 • 20K</div>
-        <img src="{{ asset('images/veg.png') }}" class="veg-img">
-        <button class="fav-btn"><i class="fa-solid fa-heart text-danger"></i></button>
-      </div>
-      <div class="p-3 d-flex justify-content-between">
-        <div>
-          <h6 class="fw-semibold mb-1">Flat ₹200 OFF on Buy Above ₹999</h6>
-          <div class="location"><i class="fa-solid fa-location-dot"></i> Vadodara – 390005</div>
-        </div>
-        <img src="{{ asset('images/brnd.png') }}" class="brand-logo">
-      </div>
     </div>
 
   </div>
-</section>
+  @endif
 
-<!-- section 6 -->
-<div class="container-fluid py-2 event">
-  <h3 class="mb-4 fw-bold" style="font-size: 24px;">Book Your Table</h3>
+  @if(!empty($sub['products']))
+  <section class="container-fluid my-5 event">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="fw-bold" style="font-size: 24px;">Best Offer</h3>
+      <a href="#" class="view-all">VIEW ALL ></a>
+    </div>
 
-  <div class="row g-2">
+    <!-- HORIZONTAL SCROLL WRAPPER -->
+    <div class="offer-scroll">
 
-    <!-- CARD 1 -->
-    <div class="col-lg-3 col-md-6 col-sm-12">
-      <div class="restaurant-card">
+      @foreach($sub['products'] as $product)
+      <div class="offer-card">
+        <div class="offer-img-wrapper">
 
-        <!-- CARD TOP CONTENT -->
-        <div class="card-content p-3 d-flex gap-1 justify-content-between">
+          <span class="offer-badge">{{$product['offer']->title ?? ''}}</span>
+          <img src="{{$product['image_url']}}" class="offer-img">
 
-          <!-- LEFT (Logo + Text) -->
-          <div class="d-flex gap-2">
-            <img src="{{ asset('images/resto1.png') }}">
+          <!-- ⭐ Rating inside image -->
+          <div class="img-rating">⭐ {{$product['rating']}} | {{$product['count']}}</div>
 
-            <div>
-              <h6 class="fw-semibold mb-1" style="font-size: 15px;">Restaurant name</h6>
-              <p class="text-warning fw-semibold mb-1" style="color:#FF6A00 !important;">UP TO 60% OFF</p>
 
-              <div class="d-flex align-items-center gap-2">
-                <span style="font-size:14px;" class="text-muted fw-semibold"><i
-                    class="bi bi-eye-fill fs-6 text-muted"></i> 20K</span>
-              </div>
+
+          @if($product['veg'] == '1')
+          <img src="{{ asset('images/veg.png') }}" class="veg-img">
+          @elseif($product['veg'] == '2')
+          <img src="{{ asset('images/non_veg.png') }}" class="veg-img">
+          @elseif($product['veg'] == '0')
+          @else
+          <img src="{{ asset('images/veg-non.png') }}" class="veg-img">
+          @endif
+
+          <!-- Heart -->
+          <button class="fav-btn"><span class="text-danger"><i
+                class="fa-heart @if($product['like_status'] == '1')fa-solid @else fa-regular @endif"></i></span></button>
+        </div>
+
+        <div class="p-3 d-flex justify-content-between">
+          <div>
+            <h6 class="fw-semibold mb-1">{{$product['name'] ?? ''}}</h6>
+
+            <div class="location">
+              <i class="fa-solid fa-location-dot"></i> {{$product['location']->area ?? ''}} –
+              {{$product['location']->pincode
+              ?? ''}}
             </div>
           </div>
 
-          <!-- RIGHT (Heart + Veg icon) -->
-          <div class="d-flex flex-column align-items-end gap-2">
-            <button class="border-0 bg-white"><span class="text-danger"><i
-                  class="fa-solid fa-heart"></i></span></button>
-
-            <!-- Veg Image (added above heart) -->
-            <img src="{{ asset('/images/veg.png') }}" class="veg-img-resto mx-auto">
-          </div>
-
+          <!-- RIGHT : Small brand logo -->
+          <img src="{{$product['brand_image']}}" class="brand-logo">
         </div>
 
-        <!-- BOOK NOW BUTTON -->
-        <div class="book-btn">BOOK NOW ➜</div>
       </div>
+      @endforeach
+
+
     </div>
+  </section>
+  @endif
 
-    <!-- CARD 2 -->
-    <div class="col-lg-3 col-md-6 col-sm-12">
-      <div class="restaurant-card">
+  @if(!empty($sub['booking']))
+  <div class="container-fluid py-2 event">
+    <h3 class="mb-4 fw-bold" style="font-size: 24px;">Book Your Table</h3>
 
-        <!-- CARD TOP CONTENT -->
-        <div class="card-content p-3 d-flex gap-1 justify-content-between">
+    <div class="row g-2">
 
-          <!-- LEFT (Logo + Text) -->
-          <div class="d-flex gap-2">
-            <img src="{{ asset('images/resto2.png') }}">
+      @foreach($sub['booking'] as $booking)
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="restaurant-card">
 
-            <div>
-              <h6 class="fw-semibold mb-1" style="font-size: 15px;">Restaurant name</h6>
-              <p class="text-warning fw-semibold mb-1" style="color:#FF6A00 !important;">UP TO 60% OFF</p>
+          <!-- CARD TOP CONTENT -->
+          <div class="card-content p-2 d-flex gap-1 justify-content-between">
 
-              <div class="d-flex align-items-center gap-2">
-                <span style="font-size:14px;" class="text-muted fw-semibold"><i
-                    class="bi bi-eye-fill fs-6 text-muted"></i> 20K</span>
+            <!-- LEFT (Logo + Text) -->
+            <div class="d-flex gap-2 mx-2">
+              <img src="{{ $booking['icon'] }}" width="45" height="45">
+
+              <div>
+                <h6 class="fw-semibold mb-1" style="font-size: 15px;">{{$booking['name']}}</h6>
+                {{-- <p class="text-warning fw-semibold mb-1" style="color:#FF6A00 !important;">UP TO 60% OFF</p> --}}
+
+                <div class="d-flex align-items-center gap-2">
+                  <span style="font-size:14px;" class="text-muted fw-semibold"><i
+                      class="bi bi-eye-fill fs-6 text-muted"></i> {{$booking['count']}}</span>
+                </div>
               </div>
+            </div>
+
+            <!-- RIGHT (Heart + Veg icon) -->
+            <div class="d-flex flex-column align-items-end gap-2">
+              <button class="border-0 bg-white"><span class="text-danger"><i
+                    class="fa-heart @if($booking['like_status'] == '1')fa-solid @else fa-regular @endif"></i></span></button>
+
+              @if($booking['veg'] == '1')
+              <img src="{{ asset('images/veg.png') }}" class="veg-img-resto mx-auto">
+              @elseif($booking['veg'] == '2')
+              <img src="{{ asset('images/non_veg.png') }}" class="veg-img-resto mx-auto">
+              @elseif($booking['veg'] == '0')
+              @else
+              <img src="{{ asset('images/veg-non.png') }}" class="veg-img-resto mx-auto">
+              @endif
             </div>
           </div>
 
-          <!-- RIGHT (Heart + Veg icon) -->
-          <div class="d-flex flex-column align-items-end gap-2">
-            <button class="border-0 bg-white"><span class="text-danger"><i
-                  class="fa-solid fa-heart"></i></span></button>
-
-            <!-- Veg Image (added above heart) -->
-            <img src="{{ asset('/images/veg.png') }}" class="veg-img-resto mx-auto">
-          </div>
-
-        </div>
-
-        <!-- BOOK NOW BUTTON -->
-        <div class="book-btn">BOOK NOW ➜</div>
-      </div>
-    </div>
-
-    <!-- CARD 3 -->
-    <div class="col-lg-3 col-md-6 col-sm-12">
-      <div class="restaurant-card">
-
-        <!-- CARD TOP CONTENT -->
-        <div class="card-content p-3 d-flex gap-1 justify-content-between">
-
-          <!-- LEFT (Logo + Text) -->
-          <div class="d-flex gap-2">
-            <img src="{{ asset('images/resto3.png') }}">
-
-            <div>
-              <h6 class="fw-semibold mb-1" style="font-size: 15px;">Restaurant name</h6>
-              <p class="text-warning fw-semibold mb-1" style="color:#FF6A00 !important;">UP TO 60% OFF</p>
-
-              <div class="d-flex align-items-center gap-2">
-                <span style="font-size:14px;" class="text-muted fw-semibold"><i
-                    class="bi bi-eye-fill fs-6 text-muted"></i> 20K</span>
-              </div>
+          <div class="d-flex justify-content-between">
+            <div class="location mx-3 mb-1">
+              <i class="fa-solid fa-location-dot"></i> {{$booking['location']->area ?? ''}} –
+              {{$booking['location']->pincode
+              ?? ''}}
             </div>
           </div>
-
-          <!-- RIGHT (Heart + Veg icon) -->
-          <div class="d-flex flex-column align-items-end gap-2">
-            <button class="border-0 bg-white"><span class="text-danger"><i
-                  class="fa-solid fa-heart"></i></span></button>
-
-            <!-- Veg Image (added above heart) -->
-            <img src="{{ asset('/images/veg.png') }}" class="veg-img-resto mx-auto">
-          </div>
-
+          <div class="book-btn">BOOK NOW ➜</div>
         </div>
-
-        <!-- BOOK NOW BUTTON -->
-        <div class="book-btn">BOOK NOW ➜</div>
       </div>
+      @endforeach
+
     </div>
+  </div>
+  @endif
 
-    <!-- CARD 4 -->
-    <div class="col-lg-3 col-md-6 col-sm-12">
-      <div class="restaurant-card">
+  @if(!empty($sub['brand_banner']))
+  <div class="banner mt-3 container-fluid">
+    <h3 class="w-100 text-center fw-bold" style="font-size: 24px;">
+      Every Day deals For you
+    </h3>
 
-        <!-- CARD TOP CONTENT -->
-        <div class="card-content p-3 d-flex gap-1 justify-content-between">
+    <!-- scrollable container has the id -->
+    <div class="banner-scroll" id="slider">
+      @foreach($sub['brand_banner'] as $brand_banner)
+      <div class="banner-item"><img src="{{ $brand_banner['image_url'] }}" alt=""></div>
+      @endforeach
+    </div>
+  </div>
+  @endif
 
-          <!-- LEFT (Logo + Text) -->
-          <div class="d-flex gap-2">
-            <img src="{{ asset('images/resto4.png') }}">
 
-            <div>
-              <h6 class="fw-semibold mb-1" style="font-size: 15px;">Restaurant name</h6>
-              <p class="text-warning fw-semibold mb-1" style="color:#FF6A00 !important;">UP TO 60% OFF</p>
+  @if(!empty($sub['own_banner']))
+  <div class="container-fluid py-3" style="background-color: var(--nav-bg);">
 
-              <div class="d-flex align-items-center gap-2">
-                <span style="font-size:14px;" class="text-muted fw-semibold"><i
-                    class="bi bi-eye-fill fs-6 text-muted"></i> 20K</span>
-              </div>
-            </div>
-          </div>
+    <h3 class="text-center text-light fw-semibold mb-3 container" style="font-size: 24px;">
+      Best Offer In This Week
+    </h3>
 
-          <!-- RIGHT (Heart + Veg icon) -->
-          <div class="d-flex flex-column align-items-end gap-2">
-            <button class="border-0 bg-white"><span class="text-danger"><i
-                  class="fa-solid fa-heart"></i></span></button>
-
-            <!-- Veg Image (added above heart) -->
-            <img src="{{ asset('/images/veg.png') }}" class="veg-img-resto mx-auto">
-          </div>
-
-        </div>
-
-        <!-- BOOK NOW BUTTON -->
-        <div class="book-btn">BOOK NOW ➜</div>
+    <!-- HORIZONTAL SCROLL WRAPPER -->
+    <div class="best-offer-scroll container">
+      @foreach($sub['own_banner'] as $own_banner)
+      <div class="offer-card">
+        <img src="{{ $own_banner['image_url'] }}" class="offer-img" alt="">
       </div>
+      @endforeach
+
     </div>
-
   </div>
-</div>
+  @endif
 
-<!-- Section 7 -->
-<div class="banner mt-3 container-fluid">
-  <h3 class="w-100 text-center fw-bold" style="font-size: 24px;">
-    Every Day deals For you
-  </h3>
-
-  <!-- scrollable container has the id -->
-  <div class="banner-scroll" id="slider">
-    <div class="banner-item"><img src="{{ asset('images/banner1.png') }}" alt=""></div>
-    <div class="banner-item"><img src="{{ asset('images/banner1.png') }}" alt=""></div>
-    <div class="banner-item"><img src="{{ asset('images/banner1.png') }}" alt=""></div>
-    <div class="banner-item"><img src="{{ asset('images/banner1.png') }}" alt=""></div>
-    <div class="banner-item"><img src="{{ asset('images/banner1.png') }}" alt=""></div>
-    <div class="banner-item"><img src="{{ asset('images/banner1.png') }}" alt=""></div>
-  </div>
 </div>
 
 
-<!-- section 8 -->
-<div class="container-fluid py-3" style="background-color: var(--nav-bg);">
+@endforeach
 
-  <h3 class="text-center text-light fw-semibold mb-3 container" style="font-size: 24px;">
-    Best Offer In This Week
-  </h3>
-
-  <!-- HORIZONTAL SCROLL WRAPPER -->
-  <div class="best-offer-scroll container">
-
-    <div class="offer-card">
-      <img src="{{ asset('images/domi.png') }}" class="offer-img" alt="">
-    </div>
-
-    <div class="offer-card">
-      <img src="{{ asset('images/mcd1.png') }}" class="offer-img" alt="">
-    </div>
-
-    <div class="offer-card">
-      <img src="{{ asset('images/sub.png') }}" class="offer-img" alt="">
-    </div>
-
-    <div class="offer-card">
-      <img src="{{ asset('images/taco.png') }}" class="offer-img" alt="">
-    </div>
-
-  </div>
-</div>
-
+@if($keys == '0' && !empty($events))
 <!-- section 9 -->
 <div class="event-bg py-2 container-fluid">
   <div class="container-fluid py-4 event">
@@ -596,20 +376,23 @@
 
     <div class="row g-4">
 
-      <!-- ===== CARD TEMPLATE (Copy this for all cards) ===== -->
+      @foreach($events as $eventval)
       <div class="col-12 col-sm-6 col-lg-3">
         <div class="event-card shadow-sm rounded-4">
-          <img src="{{ asset('images/img8.png') }}" class="img-fluid rounded-top" alt="event">
+          <img src="{{ $eventval['image_url'] }}" class="img-fluid rounded-top" alt="event">
 
           <div class="content-box">
             <p class="date-line mb-1">
-              Sat, 22 Nov, 2025 • 08:00 pm to 11:00 pm
+              {{ \Carbon\Carbon::parse($eventval['start_date'])->format('d M Y') }} to {{
+              \Carbon\Carbon::parse($eventval['end_date'])->format('d M Y') }}
+
+              {{ $eventval['time'] }}
             </p>
 
-            <h6 class="fw-semibold mb-1">Stand Up Comedy</h6>
+            <h6 class="fw-semibold mb-1">{{ $eventval['title'] }}</h6>
 
             <p class="location-text mb-2">
-              Surat Dumas
+              {{ $eventval['address'] }}
             </p>
 
             <a href="#" class="buy-link">
@@ -618,484 +401,28 @@
           </div>
         </div>
       </div>
+      @endforeach
 
 
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="event-card shadow-sm rounded-4">
-          <img src="{{ asset('images/img8.png') }}" class="img-fluid rounded-top" alt="event">
 
-          <div class="content-box">
-            <p class="date-line mb-1">
-              Sat, 22 Nov, 2025 • 08:00 pm to 11:00 pm
-            </p>
-
-            <h6 class="fw-semibold mb-1">Stand Up Comedy</h6>
-
-            <p class="location-text mb-2">
-              Surat Dumas
-            </p>
-
-            <a href="#" class="buy-link">
-              <i class="bi bi-ticket-detailed"></i> Buy Passes
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="event-card shadow-sm rounded-4">
-          <img src="{{ asset('images/img8.png') }}" class="img-fluid rounded-top" alt="event">
-
-          <div class="content-box">
-            <p class="date-line mb-1">
-              Sat, 22 Nov, 2025 • 08:00 pm to 11:00 pm
-            </p>
-
-            <h6 class="fw-semibold mb-1">Stand Up Comedy</h6>
-
-            <p class="location-text mb-2">
-              Surat Dumas
-            </p>
-
-            <a href="#" class="buy-link">
-              <i class="bi bi-ticket-detailed"></i> Buy Passes
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="event-card shadow-sm rounded-4">
-          <img src="{{ asset('images/img8.png') }}" class="img-fluid rounded-top" alt="event">
-
-          <div class="content-box">
-            <p class="date-line mb-1">
-              Sat, 22 Nov, 2025 • 08:00 pm to 11:00 pm
-            </p>
-
-            <h6 class="fw-semibold mb-1">Stand Up Comedy</h6>
-
-            <p class="location-text mb-2">
-              Surat Dumas
-            </p>
-
-            <a href="#" class="buy-link">
-              <i class="bi bi-ticket-detailed"></i> Buy Passes
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="event-card shadow-sm rounded-4">
-          <img src="{{ asset('images/img8.png') }}" class="img-fluid rounded-top" alt="event">
-
-          <div class="content-box">
-            <p class="date-line mb-1">
-              Sat, 22 Nov, 2025 • 08:00 pm to 11:00 pm
-            </p>
-
-            <h6 class="fw-semibold mb-1">Stand Up Comedy</h6>
-
-            <p class="location-text mb-2">
-              Surat Dumas
-            </p>
-
-            <a href="#" class="buy-link">
-              <i class="bi bi-ticket-detailed"></i> Buy Passes
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="event-card shadow-sm rounded-4">
-          <img src="{{ asset('images/img8.png') }}" class="img-fluid rounded-top" alt="event">
-
-          <div class="content-box">
-            <p class="date-line mb-1">
-              Sat, 22 Nov, 2025 • 08:00 pm to 11:00 pm
-            </p>
-
-            <h6 class="fw-semibold mb-1">Stand Up Comedy</h6>
-
-            <p class="location-text mb-2">
-              Surat Dumas
-            </p>
-
-            <a href="#" class="buy-link">
-              <i class="bi bi-ticket-detailed"></i> Buy Passes
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="event-card shadow-sm rounded-4">
-          <img src="{{ asset('images/img8.png') }}" class="img-fluid rounded-top" alt="event">
-
-          <div class="content-box">
-            <p class="date-line mb-1">
-              Sat, 22 Nov, 2025 • 08:00 pm to 11:00 pm
-            </p>
-
-            <h6 class="fw-semibold mb-1">Stand Up Comedy</h6>
-
-            <p class="location-text mb-2">
-              Surat Dumas
-            </p>
-
-            <a href="#" class="buy-link">
-              <i class="bi bi-ticket-detailed"></i> Buy Passes
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="event-card shadow-sm rounded-4">
-          <img src="{{ asset('images/img8.png') }}" class="img-fluid rounded-top" alt="event">
-
-          <div class="content-box">
-            <p class="date-line mb-1">
-              Sat, 22 Nov, 2025 • 08:00 pm to 11:00 pm
-            </p>
-
-            <h6 class="fw-semibold mb-1">Stand Up Comedy</h6>
-
-            <p class="location-text mb-2">
-              Surat Dumas
-            </p>
-
-            <a href="#" class="buy-link">
-              <i class="bi bi-ticket-detailed"></i> Buy Passes
-            </a>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>
 </div>
+@endif
 
+@endforeach
 
 
-<!-- section 10 -->
-<div class="container-fluid py-3" style="background-color: var(--light-bg);">
+<div id="ajax_home_data">
 
-  <div class="row align-items-center mx-auto event">
-
-    <!-- Left Title -->
-    <div class="col-12 col-md-3 mb-3 mb-md-0">
-      <div class="section-title">FASHION APPAREL</div>
-    </div>
-
-    <!-- Right Filters -->
-    <div class="col-12 col-md-9">
-      <div class="d-flex flex-wrap gap-2 gap-md-3 justify-content-center justify-content-md-end">
-        <button class="filter-btn">ALL</button>
-        <button class="filter-btn active">MAN</button>
-        <button class="filter-btn">WOMAN</button>
-        <button class="filter-btn">CHILDREN</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- section 9 -->
-
-  <div class="container-fluid py-4 event">
-
-    <div class="brand-scroll d-flex gap-3">
-
-      <!-- CARD 1 -->
-      <div class="brand-card">
-        <div class="brand-top">
-          <span><i class="fa-regular fa-eye"></i> 20K</span>
-          <div class="d-flex align-items-center gap-2">
-            <span class="brand-heart text-danger"><i class="fa-solid fa-heart"></i></span>
-          </div>
-        </div>
-
-        <div class="brand-img">
-          <img src="{{ asset('images/brnds3.png') }}" class="brand-img-lg">
-        </div>
-
-        <div class="brand-name">Adidas</div>
-        <div class="offer-strip">UP TO 60% OFF</div>
-      </div>
-
-      <!-- CARD 2 -->
-      <div class="brand-card">
-        <div class="brand-top">
-          <span><i class="fa-regular fa-eye"></i> 20K</span>
-          <div class="d-flex align-items-center gap-2">
-            <span class="brand-heart text-secondary"><i class="fa-regular fa-heart"></i></span>
-          </div>
-        </div>
-
-        <div class="brand-img">
-          <img src="{{ asset('images/brnds2.png') }}" class="brand-img-lg">
-        </div>
-
-        <div class="brand-name">Calvin Klein</div>
-        <div class="offer-strip">UP TO 60% OFF</div>
-      </div>
-
-      <!-- CARD 3 -->
-      <div class="brand-card">
-        <div class="brand-top">
-          <span><i class="fa-regular fa-eye"></i> 20K</span>
-          <div class="d-flex align-items-center gap-2">
-            <span class="brand-heart text-secondary"><i class="fa-regular fa-heart"></i></span>
-          </div>
-        </div>
-
-        <div class="brand-img">
-          <img src="{{ asset('images/brnds6.png') }}" class="brand-img-lg">
-        </div>
-
-        <div class="brand-name">Nike</div>
-        <div class="offer-strip">UP TO 60% OFF</div>
-      </div>
-
-      <!-- CARD 4 -->
-      <div class="brand-card">
-        <div class="brand-top">
-          <span><i class="fa-regular fa-eye"></i> 20K</span>
-          <div class="d-flex align-items-center gap-2">
-            <span class="brand-heart text-secondary"><i class="fa-regular fa-heart"></i></span>
-          </div>
-        </div>
-
-        <div class="brand-img">
-          <img src="{{ asset('images/brnds5.png') }}" class="brand-img-lg">
-        </div>
-
-        <div class="brand-name">ZARA</div>
-        <div class="offer-strip">UP TO 60% OFF</div>
-      </div>
-
-      <!-- CARD 5 -->
-      <div class="brand-card">
-        <div class="brand-top">
-          <span><i class="fa-regular fa-eye"></i> 20K</span>
-          <div class="d-flex align-items-center gap-2">
-            <span class="brand-heart text-secondary"><i class="fa-regular fa-heart"></i></span>
-          </div>
-        </div>
-
-        <div class="brand-img">
-          <img src="{{ asset('images/brnds4.png') }}" class="brand-img-lg">
-        </div>
-
-        <div class="brand-name">H&M</div>
-        <div class="offer-strip">UP TO 60% OFF</div>
-      </div>
-
-      <!-- CARD 6 -->
-      <div class="brand-card">
-        <div class="brand-top">
-          <span><i class="fa-regular fa-eye"></i> 20K</span>
-          <div class="d-flex align-items-center gap-2">
-            <span class="brand-heart text-secondary"><i class="fa-regular fa-heart"></i></span>
-          </div>
-        </div>
-
-        <div class="brand-img">
-          <img src="{{ asset('images/brnds8.png') }}" class="brand-img-lg">
-        </div>
-
-        <div class="brand-name">POLO</div>
-        <div class="offer-strip">UP TO 60% OFF</div>
-      </div>
-
-    </div>
-
-  </div>
-</div>
-
-<!-- section 12 -->
-<div class="container-fluid py-2" style="background-color: var(--light-bg);">
-  <section class="container-fluid event">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="fw-bold" style="font-size: 24px;">Best Offer</h3>
-      <a href="#" class="view-all">VIEW ALL ></a>
-    </div>
-
-    <!-- HORIZONTAL SCROLL WRAPPER -->
-    <div class="offer-scroll d-flex justify-content-between">
-
-      <!-- CARD 1 -->
-      <div class="offer-card">
-        <div class="offer-img-wrapper">
-
-          <span class="offer-badge">-50% OFF</span>
-          <img src="{{ asset('images/offers1.png') }}" class="offer-img">
-
-          <div class="img-rating">⭐ 4.5 • 20K</div>
-
-          <button class="fav-btn"><span class="text-danger"><i class="fa-solid fa-heart"></i></span></button>
-        </div>
-
-        <div class="p-3 d-flex justify-content-between">
-          <div>
-            <h6 class="fw-semibold mb-1">Flat ₹200 OFF on Buy Above ₹999</h6>
-
-            <div class="location">
-              <i class="fa-solid fa-location-dot"></i> Vadodara – 390005
-            </div>
-          </div>
-
-          <!-- Brand Logo -->
-          <img src="{{ asset('images/brnds3.png') }}" class="brand-logo brand-logo-lg">
-        </div>
-
-      </div>
-
-      <!-- CARD 2 -->
-      <div class="offer-card">
-        <div class="offer-img-wrapper">
-
-          <span class="offer-badge">-50% OFF</span>
-          <img src="{{ asset('images/offers2.png') }}" class="offer-img">
-
-          <div class="img-rating">⭐ 4.5 • 20K</div>
-
-          <button class="fav-btn"><span class="text-danger"><i class="fa-solid fa-heart"></i></span></button>
-        </div>
-
-        <div class="p-3 d-flex justify-content-between">
-          <div>
-            <h6 class="fw-semibold mb-1">Flat ₹200 OFF on Buy Above ₹999</h6>
-
-            <div class="location">
-              <i class="fa-solid fa-location-dot"></i> Vadodara – 390005
-            </div>
-          </div>
-
-          <img src="{{ asset('images/puma.png') }}" class="brand-logo brand-logo-lg">
-        </div>
-
-      </div>
-
-      <!-- CARD 3 -->
-      <div class="offer-card">
-        <div class="offer-img-wrapper">
-
-          <span class="offer-badge">-50% OFF</span>
-          <img src="{{ asset('images/offers3.png') }}" class="offer-img">
-
-          <div class="img-rating">⭐ 4.5 • 20K</div>
-
-          <button class="fav-btn"><span class="text-danger"><i class="fa-solid fa-heart"></i></span></button>
-        </div>
-
-        <div class="p-3 d-flex justify-content-between">
-          <div>
-            <h6 class="fw-semibold mb-1">Flat ₹200 OFF on Buy Above ₹999</h6>
-
-            <div class="location">
-              <i class="fa-solid fa-location-dot"></i> Vadodara – 390005
-            </div>
-          </div>
-
-          <img src="{{ asset('images/brnds6.png') }}" class="brand-logo brand-logo-lg">
-        </div>
-
-      </div>
-
-      <!-- CARD 4 -->
-      <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-        <div class="offer-card">
-          <div class="offer-img-wrapper">
-
-            <span class="offer-badge">-50% OFF</span>
-            <img src="{{ asset('images/offers4.png') }}" class="offer-img">
-
-            <div class="img-rating">⭐ 4.5 • 20K</div>
-
-            <button class="fav-btn"><span class="text-danger"><i class="fa-solid fa-heart"></i></span></button>
-          </div>
-
-          <div class="p-3 d-flex justify-content-between">
-            <div>
-              <h6 class="fw-semibold mb-1">Flat ₹200 OFF on Buy Above ₹999</h6>
-
-              <div class="location">
-                <i class="fa-solid fa-location-dot"></i> Vadodara – 390005
-              </div>
-            </div>
-
-            <img src="{{ asset('images/uspolo.png') }}" class="brand-logo brand-logo-lg">
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- section 13 -->
-<div class="container-fluid py-3">
-
-  <h3 class="text-center text-dark fw-semibold mb-3 container" style="font-size: 24px;">
-    Every Day deals For you
-  </h3>
-
-  <!-- HORIZONTAL SCROLL WRAPPER -->
-  <div class="best-offer-scroll container d-flex justify-content-between">
-
-    <div class="offer-card">
-      <img src="{{ asset('images/deals1.png') }}" class="offer-img" alt="">
-    </div>
-
-    <div class="offer-card">
-      <img src="{{ asset('images/deals2.png') }}" class="offer-img" alt="">
-    </div>
-
-    <div class="offer-card">
-      <img src="{{ asset('images/deals3.png') }}" class="offer-img" alt="">
-    </div>
-
-    <div class="offer-card">
-      <img src="{{ asset('images/deals4.png') }}" class="offer-img" alt="">
-    </div>
-
-  </div>
-</div>
-
-<!-- section 14 -->
-<div class="container-fluid py-3" style="background-color: var(--nav-bg);">
-
-  <h3 class="text-center text-light fw-semibold mb-3 container" style="font-size: 24px;">
-    Best Offer In This Week
-  </h3>
-
-  <!-- HORIZONTAL SCROLL WRAPPER -->
-  <div class="best-offer-scroll container d-flex justify-content-between">
-
-    <div class="offer-card">
-      <img src="{{ asset('images/fram1.png') }}" class="offer-img" alt="">
-    </div>
-
-    <div class="offer-card">
-      <img src="{{ asset('images/fram2.png') }}" class="offer-img" alt="">
-    </div>
-
-    <div class="offer-card">
-      <img src="{{ asset('images/fram3.png') }}" class="offer-img" alt="">
-    </div>
-
-    <div class="offer-card">
-      <img src="{{ asset('images/fram4.png') }}" class="offer-img" alt="">
-    </div>
-
-  </div>
 </div>
 
 <!-- ⭐ Center Button -->
 <div class="text-center mt-3">
-  <button class="show-more-btn bg-white">Show More Offers <i class="bi bi-chevron-double-down fw-semibold"></i></button>
+  <input type="hidden" id="pageid" value="1">
+  <button class="show-more-btn bg-white" onclick="showmoreoffer()">Show More Offers <i
+      class="bi bi-chevron-double-down fw-semibold"></i></button>
 </div>
 
 
@@ -1224,6 +551,65 @@
 </script>
 
 
+<script>
+  document.addEventListener("click", function (e) {
 
+    if (e.target.classList.contains("filter-btn")) {
+
+        let btn = e.target;
+
+        let categoryId = btn.getAttribute("data-category");
+        let target = btn.getAttribute("data-target");
+
+        // Remove active only from this category
+        document.querySelectorAll(`.filter-btn[data-category='${categoryId}']`)
+                .forEach(b => b.classList.remove("active"));
+
+        btn.classList.add("active");
+
+        // If ALL → show all subcategory blocks of this category
+        if (target === "all") {
+            document.querySelectorAll(`.subcategory-block[data-category='${categoryId}']`)
+                    .forEach(block => block.style.display = "block");
+            return;
+        }
+
+        // Hide only this category's subcategory blocks
+        document.querySelectorAll(`.subcategory-block[data-category='${categoryId}']`)
+                .forEach(block => block.style.display = "none");
+
+        // Show selected one
+        document.getElementById(target).style.display = "block";
+    }
+
+});
+</script>
+
+<script>
+  function showmoreoffer(){
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    var pageid = parseInt($("#pageid").val());
+    var newpage = pageid + 1;
+    $.ajax({
+        url: "{{ route('get_home_data_page_wise') }}",
+        type: "POST",
+        data: {
+            _token: csrfToken,
+            page: newpage
+        },
+        success: function(response) {
+            $("#pageid").val(newpage);
+            if (response.status == 'success') {
+                $("#ajax_home_data").append(response.message);
+            }else{
+                 
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+  }
+</script>
 
 @endsection

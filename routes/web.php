@@ -15,6 +15,9 @@ Route::get('/run-command', function () {
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('/get_home_data_page_wise', [HomeController::class, 'get_home_data_page_wise'])->name('get_home_data_page_wise');
+
+
 Route::get('brands', [HomeController::class, 'brands'])->name('brands');
 Route::get('offer', [HomeController::class, 'offer'])->name('offer');
 Route::get('events', [HomeController::class, 'events'])->name('events');
